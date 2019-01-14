@@ -19,9 +19,9 @@ public class WebSocketController {
 	@Autowired
 	SimpMessagingTemplate simpMessagingTemplate;
 	
-	@RequestMapping("/login")
+	@RequestMapping("/index")
 	public ModelAndView login(ModelAndView mv) {
-		mv.setViewName("/login");
+		mv.setViewName("/index");
 		return mv;
 	}
 	
@@ -33,12 +33,12 @@ public class WebSocketController {
 	}
 	
 	@MessageMapping("/queue/messaging")
-	@SendToUser("/queue/greeting")
-    public String single (Principal principal, HelloMessage message) {
+	//@SendToUser("/queue/greeting")
+    public void single (Principal principal) {
 		System.out.println(principal.getName());
-        System.out.println(message);
-        return "asdas";
-        //simpMessagingTemplate.convertAndSendToUser(message.getToUser(),"/queue/messaging",message);
+       // System.out.println(message);
+       // return "asdas";
+        simpMessagingTemplate.convertAndSendToUser("test","/queue/greeting","asdas");
     }
 
 

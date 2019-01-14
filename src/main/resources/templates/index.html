@@ -21,8 +21,13 @@
 
     var socket = new SockJS("http://127.0.0.1:8080/stomp");
     var stompClient = Stomp.over(socket);
-
-    stompClient.connect({}, function(frame) {
+    var headers = { 
+    		login: 'test', 
+    		passcode: '', 
+    		// additional header 
+    		'client-id': 'my-client-id'
+    		 };
+    stompClient.connect(headers, function(frame) {
         stompClient.subscribe('/topic/first', function (msg) {
             alert(msg);
         });
@@ -51,7 +56,7 @@
     function single (){
         var msg = $("#single").val();
         console.log(msg);
-        stompClient.send("/grerting", {}, msg);
+        stompClient.send("/greeting", {}, msg);
     }
     
     function test (){
